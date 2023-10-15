@@ -15,6 +15,12 @@ switch ($route) {
     case ($route[0] === 'category' && isset($route[1])):
         include_once 'templates/category.php';
         break;
+    case ($route[0] === 'register'):
+        include_once 'templates/register.php';
+        break;
+    case ($route[0] === 'login'):
+        include_once 'templates/login.php';
+        break;
     default:
         include_once 'templates/404.php';
 }

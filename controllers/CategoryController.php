@@ -1,9 +1,12 @@
 <?php
 include_once 'traits/NavCategories.php';
+include_once 'traits/AuthItems.php';
 include_once 'cores/Query.php';
 
 class CategoryController {
     use \traits\NavCategories;
+    use \traits\AuthItems;
+
     protected Query $conn;
     protected int $posts_per_page = 2;
     protected $category_id;
