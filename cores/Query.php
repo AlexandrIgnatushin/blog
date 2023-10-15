@@ -4,9 +4,11 @@ use Couchbase\BaseException;
 
 class Query {
     public $db = null;
+
     function __construct() {
         $this->db();
     }
+
     public function db() {
         try {
             $this->db = new PDO('mysql:host=localhost;
@@ -21,8 +23,8 @@ class Query {
             die();
         }
     }
+
     public function getAll(string $sql, array $arguments = []): array {
-        $result = [];
         $query = $this->db->prepare($sql);
 
         if (!$query->execute($arguments)) {
@@ -34,12 +36,24 @@ class Query {
             throw new BaseException(json_encode($query->errorInfo()), 500, $query->errorInfo()[2]);
         }
 
-        while ($row = $query->fetch()) {
-            $result[] = $row;
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getOne(string $sql, array $arguments = []) {
+        $query = $this->db->prepare($sql);
+
+        if (!$query->execute($arguments)) {
+            error_log(json_encode([
+                'error' => $query->errorInfo(),
+                'sql' => $sql
+            ]));
+
+            throw new BaseException(json_encode($query->errorInfo()), 500, $query->errorInfo()[2]);
         }
 
-       return $result;
+        return $query->fetch(PDO::FETCH_ASSOC);
     }
+
     public function execute(string $sql, array $arguments = []) {
         $query = $this->db->prepare($sql);
 
@@ -56,5 +70,20 @@ class Query {
         }
 
         return $query;
+    }
+
+    public function getCount(string $sql, array $arguments = []) {
+        $query = $this->db->prepare($sql);
+
+        if (!$query->execute($arguments)) {
+            error_log(json_encode([
+                'error' => $query->errorInfo(),
+                'sql' => $sql
+            ]));
+
+            throw new BaseException(json_encode($query->errorInfo()), 500, $query->errorInfo()[2]);
+        }
+
+        return $query->rowCount();
     }
 }
