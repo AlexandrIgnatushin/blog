@@ -56,11 +56,11 @@ class RegisterController {
     public function renderUserRegisterForm(): void {
         $this->registerUser();
 
-        echo "<h1>Register</h1>
-              <form method='post'>
-                Login <input type='text' name='login' required>
-                Password <input type='text' name='password' required>
-                <input type='submit' value='Register' name='submit'>
+        echo "<h1>Страница регистрации</h1>
+              <form class='auth-form' method='post'>
+                Логин <input type='text' name='login' required>
+                Пароль <input type='text' name='password' required>
+                <input class='details' type='submit' value='Register' name='submit'>
               </form>";
     }
 }

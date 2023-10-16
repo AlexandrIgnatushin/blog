@@ -1,6 +1,6 @@
 <?php
-include_once 'controllers/CategoryController.php';
-$category_controller = new CategoryController($route);
+include_once 'controllers/AdminController.php';
+$admin_controller = new AdminController($route);
 ?>
 
 <!doctype html>
@@ -10,29 +10,27 @@ $category_controller = new CategoryController($route);
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>All posts</title>
+    <title>Admin</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <header class="all-posts-header">
         <div class="all-posts-header__nav">
-            <?php $category_controller->renderCategories(); ?>
-            <?php $category_controller->renderAuthItems(); ?>
+            <?php $admin_controller->renderAuthItems(); ?>
         </div>
     </header>
     <main>
         <div class="container">
+            <h1>Админ панель</h1>
             <div class="all-posts-container">
-                <?php $category_controller->renderPostsForCategory(); ?>
+                <?php $admin_controller->renderPage(); ?>
             </div>
         </div>
     </main>
     <footer>
         <div class="container">
-            <?php $category_controller->renderPagging(); ?>
+            <?php $admin_controller->renderPagging(); ?>
         </div>
     </footer>
 </body>
 </html>
-
-

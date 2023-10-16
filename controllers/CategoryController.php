@@ -1,21 +1,22 @@
 <?php
-include_once 'traits/NavCategories.php';
-include_once 'traits/AuthItems.php';
+include_once 'traits/LibRenderElements.php';
+include_once 'cores/Rights.php';
 include_once 'cores/Query.php';
 
 class CategoryController {
-    use \traits\NavCategories;
-    use \traits\AuthItems;
+    use \traits\LibRenderElements;
 
     protected Query $conn;
+    protected Rights $rights;
     protected int $posts_per_page = 2;
     protected $category_id;
     protected $num_page;
 
     function __construct($route) {
         $this->conn = new Query();
+        $this->rights = new Rights();
         $this->category_id = $route[1];
-        $this->num_page = $route[2] ?? 1;
+        $this->num_page = empty($route[2]) ? 1 : $route[2];
     }
 
     protected function getCategory(): array {
@@ -44,11 +45,13 @@ class CategoryController {
         $posts = "";
 
         foreach ($posts_for_category as $post) {
-            $posts .= "<div>
-                            <h2>{$post["title"]}</h2>
-                            <img src='/static/images/{$post["image"]}' width=200>
-                            <p>{$post["descr_min"]}</p>
-                            <a href='/post/{$post["id"]}'>Подробнее</a>
+            $posts .= "<div class='post'>
+                            <h2 class='post-title'>{$post["title"]}</h2>
+                            <div class='post-content-wrap'>
+                                <img class='img-post-title' src='/static/images/{$post["image"]}' width=200>
+                                <p class='descr-min'>{$post["descr_min"]}</p>
+                            </div>
+                            <a class='details' href='/post/{$post["id"]}'>Подробнее</a>
                         </div>";
         }
 
@@ -63,7 +66,7 @@ class CategoryController {
 
         $total_pages = ceil($count_posts / $this->posts_per_page);
 
-        echo "<div>";
+        echo "<div class='pagging'>";
 
         for ($i = 1; $i <= $total_pages; $i++) {
             echo "<a href='/category/{$this->category_id}/$i'>$i</a> ";

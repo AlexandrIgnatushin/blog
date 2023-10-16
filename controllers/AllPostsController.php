@@ -1,18 +1,19 @@
 <?php
-include_once 'traits/NavCategories.php';
-include_once 'traits/AuthItems.php';
+include_once 'traits/LibRenderElements.php';
+include_once 'cores/Rights.php';
 include_once 'cores/Query.php';
 
 class AllPostsController {
-    use \traits\NavCategories;
-    use \traits\AuthItems;
+    use \traits\LibRenderElements;
 
     protected Query $conn;
+    protected Rights $rights;
     protected int $posts_per_page = 2;
     protected $current_page;
 
     function __construct($request) {
         $this->conn = new Query();
+        $this->rights = new Rights();
         $this->current_page = $request['page'] ?? 1;
     }
 
@@ -26,11 +27,14 @@ class AllPostsController {
         $inner_html = "";
 
         foreach ($posts as $item) {
-            $inner_html .= "<div>
-                                <h2>{$item["title"]}</h2>
-                                <img src='static/images/{$item["image"]}' width=200>
-                                <p>{$item["descr_min"]}</p>
-                                <a href='/post/{$item["id"]}'>Подробнее</a>
+
+            $inner_html .= "<div class='post'>
+                                <h2 class='post-title'>{$item["title"]}</h2>
+                                <div class='post-content-wrap'>
+                                    <img class='img-post-title' src='/static/images/{$item["image"]}'>
+                                    <p class='descr-min'>{$item["descr_min"]}</p>
+                                </div>
+                                <a class='details' href='/post/{$item["id"]}'>Подробнее</a>
                             </div>";
         }
 
@@ -41,7 +45,7 @@ class AllPostsController {
         $count_all_posts = $this->conn->getCount("SELECT * FROM posts WHERE published = 1");
         $total_pages = ceil($count_all_posts / $this->posts_per_page);
 
-        echo "<div>";
+        echo "<div class='pagging'>";
 
         for ($i = 1; $i <= $total_pages; $i++) {
             echo "<a href='?page=$i'>$i</a> ";

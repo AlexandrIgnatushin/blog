@@ -10,12 +10,12 @@ class LoginController {
         $this->request = $request;
     }
 
-    protected function checkUser($login, $password): array {
+    protected function checkUser($login, $password): array|bool {
         $login = trim($login);
         $password = md5(md5(trim($password)));
 
         return $this->conn->getOne("SELECT * FROM users WHERE login = ? AND password = ?",
-                                        [$login, $password]);
+            [$login, $password]);
     }
 
     protected function generateHash($count): string {
@@ -63,11 +63,11 @@ class LoginController {
     public function renderLoginForm(): void {
         $this->loginUser();
 
-        echo "<h1>Login</h1>
-              <form method='post'>
-                Login <input type='text' name='login' required>
-                Password <input type='text' name='password' required>
-                <input type='submit' value='Login' name='submit'>
+        echo "<h1>Страница авторизации</h1>
+              <form class='auth-form' method='post'>
+                Логин <input type='text' name='login' required>
+                Пароль <input type='text' name='password' required>
+                <input class='details' type='submit' value='Login' name='submit'>
               </form>";
     }
 }
