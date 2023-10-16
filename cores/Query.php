@@ -54,7 +54,7 @@ class Query {
         return $query->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function execute(string $sql, array $arguments = []) {
+    public function execute(string $sql, array $arguments = []): bool {
         $query = $this->db->prepare($sql);
 
         if (!$query->execute($arguments)) {
@@ -69,7 +69,7 @@ class Query {
             ]), 500, $query->errorInfo()[2]);
         }
 
-        return $query;
+        return true;
     }
 
     public function getCount(string $sql, array $arguments = []) {
@@ -85,5 +85,20 @@ class Query {
         }
 
         return $query->rowCount();
+    }
+
+    public function getItem(string $sql, array $arguments = []) {
+        $query = $this->db->prepare($sql);
+
+        if (!$query->execute($arguments)) {
+            error_log(json_encode([
+                'error' => $query->errorInfo(),
+                'sql' => $sql
+            ]));
+
+            throw new BaseException(json_encode($query->errorInfo()), 500, $query->errorInfo()[2]);
+        }
+
+        return $query->fetchColumn();
     }
 }

@@ -26,11 +26,11 @@ class PostController {
             exit;
         }
 
-        echo  "<div>
-                     <h2>{$post["title"]}</h2>
-                     <img src='/static/images/{$post["image"]}' width=200>
-                     <p><b>{$post["descr_min"]}</b></p>
-                     <p>{$post['description']}</p>
+        echo  "<div class='big-post'>
+                     <h2 class='big-post-title'>{$post["title"]}</h2>
+                     <img class='big-post-img' src='/static/images/{$post["image"]}'>
+                     <p class='big-post-descr-min'>{$post["descr_min"]}</p>
+                     <p class='big-post-descr'>{$post['description']}</p>
                </div>";
     }
 }

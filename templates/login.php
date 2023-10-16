@@ -1,6 +1,6 @@
 <?php
-include_once 'controllers/PostController.php';
-$post_controller = new PostController($route);
+include_once 'controllers/LoginController.php';
+$login_controller = new LoginController($_REQUEST);
 ?>
 
 <!doctype html>
@@ -10,16 +10,12 @@ $post_controller = new PostController($route);
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Post</title>
+    <title>Login</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <div class="container">
-        <?php $post_controller->renderPost();?>
-    </div>
+    <main class="auth-main">
+        <?php $login_controller->renderLoginForm();?>
+    </main>
 </body>
 </html>
-
-
-
-
