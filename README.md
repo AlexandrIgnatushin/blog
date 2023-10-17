@@ -6,7 +6,7 @@
 
 "You can now connect to this MySQL Server with 6wNLKia4695C
 
-    mysql -uadmin -p6wNLKia4695C -h<host> -P<port>
+    "mysql -uadmin -p6wNLKia4695C -h<host> -P<port>"
 
 Please remember to change the above password as soon as possible!
 MySQL user 'root' has no password but only allows local connections"
