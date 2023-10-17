@@ -22,4 +22,4 @@ enjoy!<br>
    
 Приложение будет доступно на http://127.0.0.1:порт
 
-На всякий случай прикрепляю документацию: https://github.com/mattrayner/docker-lamp#using-the-image
+На всякий случай прикрепляю документацию образа докера, на основе которого я работал https://github.com/mattrayner/docker-lamp#using-the-image
