@@ -1,5 +1,5 @@
 <?php
-
+include_once 'config.php';
 use Couchbase\BaseException;
 
 class Query {
@@ -10,11 +10,12 @@ class Query {
     }
 
     public function db() {
+        global $host, $port, $dbname, $dbuser, $dbpass;
+
         try {
-            $this->db = new PDO('mysql:host=localhost;
-                                     port=3306;dbname=test;',
-                            'debian-sys-maint',
-                            '5TVmlQIRRP4GlgRT');
+            $this->db = new PDO("mysql:host=$host;
+                                     port=$port;dbname=$dbname;",
+                                     $dbuser, $dbpass);
 
             return $this->db;
         } catch (PDOException $e) {
