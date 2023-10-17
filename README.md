@@ -4,12 +4,16 @@
 3. Запустите контейнер (docker run -p "ваш порт:80" -v ${PWD}/директория проекта:/app blog-image)
 4. При запуске контейнера в консоли появится сообщение:
 
-"You can now connect to this MySQL Server with 6wNLKia4695C
+========================================================================
+You can now connect to this MySQL Server with ARb4fRxWS1sA
 
-    "mysql -uadmin -p6wNLKia4695C -h<host> -P<port>"
+    mysql -uadmin -pARb4fRxWS1sA -h<host> -P<port>
 
 Please remember to change the above password as soon as possible!
-MySQL user 'root' has no password but only allows local connections"
+MySQL user 'root' has no password but only allows local connections
+
+enjoy!
+========================================================================
 
 скопируйте сгенерированный пароль в строке "Server with пароль" и в файле проекта config.php в переменную $bdpass вставьте пароль
 
